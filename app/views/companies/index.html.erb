@@ -1,0 +1,38 @@
+<h1 class="text-center mt-4"> Companies List</h1>
+<%= render 'paginate'%>
+
+<div class="flickr_pagination">    
+    <%= will_paginate @companies, :container => false %>
+</div>
+
+<div class="container">
+<% @companies.each do |company| %>
+    <div class="row justify-content-md-center ">
+        <div class="col-8 mt-4">
+            <div class="card text-center shadow mb-5 bg-white rounded">
+                <div class="card-header ">
+                    <h3 class="card-title"><%= link_to company.name, company_path(company), {:class=>"text-success"} %> </h3>
+                </div>
+                <div class="card-body">
+                    <h6> email    : <%= company.email%></h6>
+                    <hr>
+                    <%= link_to 'View Profile', company_path(company), {:class=>"btn btn-outline-success"} %>
+                    <%= link_to 'Edit Profile', edit_company_path(company), {:class=>"btn btn-outline-info"}%>
+                </div> 
+                <div class="card-footer text-muted">
+                    <small> Account created <%=time_ago_in_words(company.created_at)%> ago, Edited <%=time_ago_in_words(company.updated_at)%> </small>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>
+<div class="flickr_pagination mb-4">    
+    <%= will_paginate @articles, :container => false %>
+</div>
+
+<br>
+<br/>
+<br/>
+
+
+</div>
