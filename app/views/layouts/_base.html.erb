@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary " >
+    <div class="container-fluid ">
+        <a class="navbar-brand" id="logo" href="#"> 
+            <%= image_tag("logo.png", width: 60) %>
+            <%= link_to "Catalogue Ally", root_path, {:style=>"color:#FFFFFF; text-decoration:none; font-size:30px; font-weight: bold;", :class => "css_class" } %> 
+        </a>   
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-3 mb-lg-0">              
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle d-inline-block text-white" id="dropdowns"  href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Users
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li> <a class="dropdown-item" href="#"> Applicants </a> </li>
+                    <li><a class="dropdown-item" href="#"> Companies Associated </a> </li>
+                  </ul>
+              </li>
+              <li class="nav-item dropdown">
+                 <a class="nav-link dropdown-toggle d-inline-block text-white" id="dropdowns"  href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Username </a>
+                 </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#"> Edit Profile </a> </li>
+                      <li><a class="dropdown-item" href="#"> Apply </a> </li>
+                      <li><a class="dropdown-item" href="#"> Post </a> </li>
+                    </ul>
+                </li>
+                <li class="nav-item active align-items-center" >
+                    <a class="nav-link others css_class" > Logout </a>
+                </li>
+                <li class="nav-item active align-items-center" >
+                    <a class="nav-link others css_class" > Login </a>
+                </li>
+                <li class="nav-item active align-items-center" >
+                    <a class="nav-link others css_class" > Signup </a>
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<footer id="sticky-footer" class="flex-shrink-0 py-4 bg-dark text-white-50 fixed-bottom">
+    <div class="container text-center">
+      <small>Copyright &copy; Uma Mahesh @ Chronus</small>
+    </div>
+</footer>
