@@ -35,8 +35,11 @@
 </div>
 
 <h3 class="text-center">Your Job Posts</h3>
+<div class="text-center">
+    <%= link_to 'Create a Job Post', new_post_path, { :class => "btn btn-primary"}%>
+</div>
 
-<div class="container">
+<div class="container p-3">
     
     <table class="table table-bordered border-primary table-hover">
         <thead class="table-dark"> 

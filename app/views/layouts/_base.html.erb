@@ -10,42 +10,48 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-3 mb-lg-0">              
               <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle d-inline-block" id="dropdowns"  href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Actions
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="text-center"> Applicants </li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><%= link_to 'Companies', companies_path, {:style=>"text-decoration:none; color: black;", :class => "css_class text-center dropdown-item"}%></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><%= link_to 'Job Posts', posts_path, {:style=>"text-decoration:none; color: black;", :class => "css_class text-center dropdown-item"}%></li>
+                </ul>
+              </li>
+              <% if logged_in?%>
+                <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle d-inline-block text-white" id="dropdowns"  href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Users
+                    <%= current_user.name.capitalize %>
                   </a>
                   <ul class="dropdown-menu">
-                    <li> <a class="dropdown-item" href="#"> Applicants </a> </li>
-                    <li><a class="dropdown-item" href="#"> Companies Associated </a> </li>
+                    <li><%= link_to 'View Profile', company_path(current_user), {:style=>"text-decoration:none; color: black;", :class => "css_class text-center dropdown-item"}%></li>
+                    <li><%= link_to 'Edit Profile', edit_company_path(current_user), {:style=>"text-decoration:none; color: black;", :class => "css_class text-center dropdown-item"}%></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><%= link_to 'Create Job Post', new_post_path, {:style=>"text-decoration:none; color: black;", :class => "css_class text-center dropdown-item"}%></li>
                   </ul>
-              </li>
-              <li class="nav-item dropdown">
-                 <a class="nav-link dropdown-toggle d-inline-block text-white" id="dropdowns"  href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Username </a>
-                 </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#"> Edit Profile </a> </li>
-                      <li><a class="dropdown-item" href="#"> Apply </a> </li>
-                      <li><a class="dropdown-item" href="#"> Post </a> </li>
-                    </ul>
                 </li>
-                <% if logged_in? %>
+              <% end %>
+              <% if logged_in? %>
+              <li class="nav-item active align-items-center" >
+                  <a class="others css_class" > 
+                    <%= button_to "Logout", logout_path, {method: :delete, :style=>"color:#FFFFFF; text-decoration:none;  ", :class => "css_class nav-link" } %> 
+                  </a>
+              </li>
+              <% else %>
                 <li class="nav-item active align-items-center" >
                     <a class="others css_class" > 
-                      <%= button_to "Logout", logout_path, {method: :delete, :style=>"color:#FFFFFF; text-decoration:none;  ", :class => "css_class nav-link" } %> 
+                      <%= link_to "Login", login_path, {:style=>"color:#FFFFFF; text-decoration:none;  ", :class => "css_class nav-link" } %> 
                     </a>
                 </li>
-                <% else %>
-                  <li class="nav-item active align-items-center" >
-                      <a class="nav-link others css_class" > 
-                        <%= link_to "Login", login_path, {:style=>"color:#FFFFFF; text-decoration:none;  ", :class => "css_class nav-link" } %> 
-                      </a>
-                  </li>
-                  <li class="nav-item active align-items-center" >
-                      <a class="nav-link others css_class" > 
-                        <%= link_to "Sign_up", signup1_path, {:style=>"color:#FFFFFF; text-decoration:none;  ", :class => "css_class nav-link" } %> 
-                      </a>
-                  </li>
-                <% end%>
+                <li class="nav-item active align-items-center" >
+                    <a class=" others css_class" > 
+                      <%= link_to "Sign_up", signup1_path, {:style=>"color:#FFFFFF; text-decoration:none;  ", :class => "css_class nav-link" } %> 
+                    </a>
+                </li>
+              <% end%>
             </ul>
             <form class="d-flex" role="search">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

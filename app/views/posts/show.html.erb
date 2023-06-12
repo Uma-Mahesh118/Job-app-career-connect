@@ -16,9 +16,12 @@
             <div class="mt-2">
               <strong > Skills : </strong>
               <% if @post.skills.any? %>
-                
-                  <%= @post.skills.first %>
-                
+                &bull;
+                <% @post.skills.each do |skill| %>
+                    <% if skill != "" %>
+                        <%= Skill.find(skill).name %> &bull;
+                    <%end%>
+                <% end%>              
               <% end %>
             </div> 
           </div>
@@ -37,3 +40,5 @@
     </div>
   </div>
 </div>
+<h3 class="text-center mt-4"> Total Candidates selected </h3>
+<div class="container">

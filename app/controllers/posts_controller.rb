@@ -27,7 +27,7 @@ class PostsController < ApplicationController
         @post = Post.new(post_params)
         @post.company = current_user
         if @post.save
-            flash[:notice] = "Welcome to Alpha blog #{@company.name}, you have succesfully signed up"
+            flash[:notice] = "Your Job post is Succesfully created"
             redirect_to posts_path
         else
             render 'new'
