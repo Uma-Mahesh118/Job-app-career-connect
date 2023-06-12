@@ -15,9 +15,12 @@
                 </div>
                 <div class="card-body">
                     <h6> email    : <%= company.email%></h6>
+                    <h6> Job posts :<%= company.posts.count%> </h6>
                     <hr>
                     <%= link_to 'View Profile', company_path(company), {:class=>"btn btn-outline-success"} %>
-                    <%= link_to 'Edit Profile', edit_company_path(company), {:class=>"btn btn-outline-info"}%>
+                    <% if logged_in? && ( company == current_user )%>
+                        <%= link_to 'Edit Profile', edit_company_path(company), {:class=>"btn btn-outline-info"}%>
+                    <% end%>
                 </div> 
                 <div class="card-footer text-muted">
                     <small> Account created <%=time_ago_in_words(company.created_at)%> ago, Edited <%=time_ago_in_words(company.updated_at)%> </small>
@@ -33,6 +36,4 @@
 <br>
 <br/>
 <br/>
-
-
 </div>

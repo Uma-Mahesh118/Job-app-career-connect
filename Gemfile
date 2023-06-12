@@ -52,7 +52,8 @@ gem 'will_paginate', '~>3.1.0'
 # gem "sassc-rails"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+gem 'shrine', '~> 3.3'
+gem "image_processing", "~> 1.2"
 
 group :development, :test do
   gem "sqlite3", "~> 1.4"
@@ -84,5 +85,3 @@ group :production do
   gem 'pg'
 end
 gem "cssbundling-rails", "~> 1.1"
-
-
