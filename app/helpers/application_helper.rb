@@ -1,3 +1,4 @@
+require 'digest/md5'
 module ApplicationHelper
     def gravatar_for(user, options = {size:100})
         email_adr= user.email.downcase

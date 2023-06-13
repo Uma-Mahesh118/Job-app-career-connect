@@ -17,4 +17,23 @@ class SessionsController < ApplicationController
         flash[:notice] = "Logged out"
         redirect_to root_path
     end
+
+    def new1
+    end
+    def create1 
+        applicant = Applicant.find_by(email: params[:session][:email].downcase)
+        if applicant && applicant.authenticate(params[:session][:password])
+            session[:user2_id] = applicant.id
+            flash[:notice]= "Login Successful"
+            redirect_to applicant
+        else
+            flash.now[:alert]= "Login Failed. Incorrect email or password."
+            render 'new'
+        end
+    end
+    def destroy1
+        session[:user2_id] = nil
+        flash[:notice] = "Logged out"
+        redirect_to root_path
+    end
 end

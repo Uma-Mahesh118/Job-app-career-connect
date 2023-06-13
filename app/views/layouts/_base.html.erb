@@ -33,13 +33,26 @@
                     <li><%= link_to 'Create Job Post', new_post_path, {:style=>"text-decoration:none; color: black;", :class => "css_class text-center dropdown-item"}%></li>
                   </ul>
                 </li>
-              <% end %>
-              <% if logged_in? %>
-              <li class="nav-item active align-items-center" >
-                  <a class="others css_class" > 
-                    <%= button_to "Logout", logout_path, {method: :delete, :style=>"color:#FFFFFF; text-decoration:none;  ", :class => "css_class nav-link" } %> 
+                <li class="nav-item active align-items-center" >
+                    <a class="others css_class" > 
+                      <%= button_to "Logout", logout_path, {method: :delete, :style=>"color:#FFFFFF; text-decoration:none;  ", :class => "css_class nav-link" } %> 
+                    </a>
+                </li>
+              <% elsif logged2_in?%>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle d-inline-block text-white" id="dropdowns"  href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <%= current_user2.name.capitalize %>
                   </a>
-              </li>
+                  <ul class="dropdown-menu">
+                    <li><%= link_to 'View Profile', applicant_path(current_user2), {:style=>"text-decoration:none; color: black;", :class => "css_class text-center dropdown-item"}%></li>
+                    <li><%= link_to 'Edit Profile', edit_applicant_path(current_user2), {:style=>"text-decoration:none; color: black;", :class => "css_class text-center dropdown-item"}%></li>
+                  </ul>
+                </li>
+                <li class="nav-item active align-items-center" >
+                    <a class="others css_class" > 
+                      <%= button_to "Logout", logout2_path, {method: :delete, :style=>"color:#FFFFFF; text-decoration:none;  ", :class => "css_class nav-link" } %> 
+                    </a>
+                </li>
               <% else %>
                 <li class="nav-item active align-items-center" >
                     <a class="others css_class" > 
@@ -48,7 +61,7 @@
                 </li>
                 <li class="nav-item active align-items-center" >
                     <a class=" others css_class" > 
-                      <%= link_to "Sign_up", signup1_path, {:style=>"color:#FFFFFF; text-decoration:none;  ", :class => "css_class nav-link" } %> 
+                      <%= link_to "Sign_up", signup_path, {:style=>"color:#FFFFFF; text-decoration:none;  ", :class => "css_class nav-link" } %> 
                     </a>
                 </li>
               <% end%>

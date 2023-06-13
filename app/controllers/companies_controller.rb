@@ -28,21 +28,17 @@ class CompaniesController < ApplicationController
     def create
         @company = Company.new(company_params)
         if @company.save
-            flash[:notice] = "Welcome to Alpha blog #{@company.name}, you have succesfully signed up"
-            redirect_to companies_path
+            session[:user_id] = @company.id
+            flash[:notice] = "Welcome to Catalogue Ally #{@company.name}, you have succesfully signed up"
+            redirect_to @company
         else
             render 'new'
         end
-    end   
+    end  
     def destroy
+        @company = Company.find(params[:id])        
+        session[:user_id] =nil if @company == current_user
         @company.destroy
-        flash[:notice] = "Account and all articles associated are deleted"
-    end
-
-    def destroy
-        @company = Company.find(params[:id])
-        @company.destroy
-        session[:company_id] =nil if @comany == current_user
         respond_to do |format|
             format.html { redirect_to companies_path notice: 'Account is successfully deleted.' }
             format.json { head :no_content }
@@ -53,7 +49,7 @@ class CompaniesController < ApplicationController
     private
 
     def company_params
-        params.require(:company).permit(:name, :email, :location, :password)
+        params.require(:company).permit(:name, :email, :password)
     end
     def set_company
         @company= Company.find(params[:id])
