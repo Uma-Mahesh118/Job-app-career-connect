@@ -1,0 +1,25 @@
+<h1 class="text-center text-sucess"> Welcome To Catalogue, <%= @user.name %> </h1>
+
+<div class="container mt-4">
+    Catalogue Ally, Welcomes you to our Community.
+    <%= image_tag("logo.png", width: 300) %>
+    <% if @user.check%>
+      <ul>
+        <li>Dear User, We welcome you to our application.</li> 
+        <li>View your profile to find the jobs that match your skills </li>
+        <li>We'll update you with mail. If there are any Future Job Posts. </li>
+        <li><strong> "As we said- Your Dream Job awaits... "</strong></li>
+      </ul>
+    <%else %>
+      <ul>
+        <li>Your Company can post the Job posts in our Web Application.</li> 
+        <li>Our Skill Match feature helps you to find suitable applicants in seconds </li>
+        <li>You can view the matched profiles, and also message them in our web application. </li>
+        <li>We'll update you with mail. If there are any Future Matches to your Job post.</li>
+      </ul>
+    <%end%>
+
+</p>
+
+<h4> Thank you, </h4>
+<h4> Admin team </h4>

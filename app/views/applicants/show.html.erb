@@ -1,14 +1,13 @@
 <%=render 'paginate'%>
 <div class="container">
     <div class="row">
-        
         <h2 class="text-center mt-4"><%= @applicant.name %>'s Profile</h2>
-        <div class="col-3 text-center mt-4">
+        <div class="col-4 text-center mt-4">
             <%= gravatar_for @applicant, size:200%>
         </div> 
-        <div class="col-9 text-center">
+        <div class="col-8 text-center">
             <div class="row justify-content-md-center ">
-                <div class="col-8 mt-4">
+                <div class="col-11 mt-4">
                     <div class="card text-center shadow mb-5 bg-white rounded">
                         <div class="card-header ">
                             <h5 class="card-title text-italics">Jobs matched : <%= @applicant.posts.count%> </h5>
@@ -35,7 +34,7 @@
                     </div>
                 </div>
             </div>
-            
+               
         </div>       
     </div>
 </div>
@@ -55,8 +54,7 @@
             <th scope="col"> Actions </th>
             </tr>
         </thead>
-        <tbody>
-            <% @applicant.posts.each do |post| %>
+        <% @applicant.posts.each do |post| %>
                 <tr>
                     <td > <%= Company.find(post.company_id).name %> </td> 
                     <td> <%= post.name %>  </td>
@@ -73,12 +71,14 @@
                         <% end %>
                     </td>
                     <td>
-                        <div class="progress">
+                         <div class="progress">
                             <% @count= Result.where( post_id: post, applicant_id: @applicant).first %>
-                            <div class="progress-bar" role="progressbar" style="width: <%= (@count.matches * 100)/post.skills.count %>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><%= (@count.matches * 100)/post.skills.count %>%</div>
+                            <% @req= post.skills.count %>
+                            <% @req= @req-1 %>
+                            <div class="progress-bar" role="progressbar" style="width: <%= (@count.matches * 100)/(@req) %>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><%= (@count.matches * 100)/(@req) %>%</div>
                         </div>
-                        <div class="text-center"><%= @count.matches %> out of <%= post.skills.count %> matched</div>
-                    </td>
+                        <div class="text-center"><%= @count.matches %> out of <%= @req %> matched</div>
+                     </td>
                     <td> 
                         <%= link_to 'Show Post', post_path(post), {:class=>"btn btn-success btn-sm"} %>
                         <% if logged_in? && ( session[:user2_id] == current_user2 ) %>

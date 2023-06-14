@@ -13,14 +13,21 @@ class ApplicationController < ActionController::Base
         !!current_user2
     end
     def require_user
-        if !logged_in?
-            flash[:alert] = "You must be logged in to do this action"
+        if !logged_in? && logged2_in?
+            flash[:alert] = "You must be logged in as an company to do this action"
+            redirect_back_or_to '/'
+        elsif !logged_in?
+            flash[:alert] = "You must be logged to do this action"
             redirect_to login_path
         end
+
     end
     def require_user2
-        if !logged2_in?
-            flash[:alert] = "You must be logged in to do this action"
+        if !logged2_in? && logged_in?
+            flash[:alert] = "You must be logged in as an company to do this action"
+            redirect_back_or_to '/'
+        elsif !logged2_in?
+            flash[:alert] = "You must be logged to do this action"
             redirect_to login2_path
         end
     end
@@ -34,12 +41,9 @@ class ApplicationController < ActionController::Base
                 n= intersection.size
                 m= skills.size 
                 if ( (n-1) * 100)/(m-1)  >= 80
-                    if type == 'create' 
-                        res= Result.new(post_id: post.id,applicant_id: applicant.id, matches: n)
-                        res.save                        
-                    elsif type=='update' && !result.where(post_id: post.id,applicant_id: applicant.id).any?
-                        res= Result.new(post_id: post.id,applicant_id: applicant.id, matches: n)
-                        res.save 
+                    if !result.where(post_id: post.id,applicant_id: applicant.id).any?
+                        res= Result.new(post_id: post.id,applicant_id: applicant.id, matches: n-1)
+                        res.save               
                     end                    
                 else
                     if result.where(post_id: post.id,applicant_id: applicant.id).any?
@@ -56,10 +60,9 @@ class ApplicationController < ActionController::Base
                 n= intersection.size
                 m= skills.size 
                 if ( (n-1) * 100)/(m-1) >= 80    
-                    if type == 'create' 
-                        res = Result.new(post_id: new_post.id,applicant_id: applicant.id, matches:n )                  
-                    elsif type=='update' && !result.where(post_id: new_post.id,applicant_id: applicant.id ).any?
-                        Result.create(post_id: new_post.id,applicant_id: applicant.id, matches: intersection.count) 
+                    if !result.where(post_id: new_post.id,applicant_id: applicant.id ).any?
+                        res = Result.new(post_id: new_post.id,applicant_id: applicant.id, matches:n-1 )                  
+                        res.save
                     end
                 else
                     if result.where(post_id: new_post.id,applicant_id: applicant.id).any?

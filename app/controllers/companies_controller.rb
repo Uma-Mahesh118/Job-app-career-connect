@@ -38,6 +38,7 @@ class CompaniesController < ApplicationController
     def destroy
         @company = Company.find(params[:id])        
         session[:user1_id] =nil if @company == current_user
+        NotificationMailer.update_action(@company) 
         @company.destroy
         respond_to do |format|
             format.html { redirect_to companies_path notice: 'Account is successfully deleted.' }

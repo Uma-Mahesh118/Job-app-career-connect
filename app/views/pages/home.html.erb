@@ -2,6 +2,6 @@
 <div class="mt-4 p-4 bg-primary text-white rounded text-center home" >
   <%= image_tag("Catalogue Ally.png", width: 350) %>
   <br>
-  <button class="btn btn-info"> Login </button> 
-  <button class="btn btn-primary"> Sign-up! </button> 
+  <%= link_to 'Login', login_path, {:class => "btn btn-primary"}%>
+  <%= link_to 'Sign-up', signup_path, {:class => "btn btn-success"}%>
 </div>
