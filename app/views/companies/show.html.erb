@@ -3,6 +3,10 @@
     <div class="row">
         
         <h2 class="text-center mt-4"><%= @company.name %>'s Profile</h2>
+        
+        <div class="col-4 text-center mt-4 " style="top:50%; bottom:50">
+            <%= find_image @company, size:100%>
+        </div>     
         <div class="col-8 text-center">
             <div class="row justify-content-md-center ">
                 <div class="col-8 mt-4">
@@ -26,10 +30,7 @@
                 </div>
             </div>
             
-        </div>  
-        <div class="col-4 text-center ">
-            <%= find_image @company, size:100%>
-        </div>      
+        </div>   
     </div>
     
 </div>
@@ -58,12 +59,16 @@
                     <td > <%= truncate(post.description, length: 15)%>...</th>
                     <td >
                         <% if post.skills.any? %>
-                            <%= post.skills.first%>
+                            &bull;
+                            <% s=  Skill.where(id: post.skills) %>
+                            <% s.each do |skill| %>
+                                <%=skill.name %> &bull;
+                            <%end%>
                         <% else %>
                             <strong>No skills Required </strong>
                         <% end %>
                     </td>
-                    <td > n Candidates Matched</td>
+                    <td > <%= post.applicants.count %> Candidates Matched</td>
                     <td> 
                         <%= link_to 'Show', post_path(post), {:class=>"btn btn-success btn-sm"} %>
                         <% if logged_in? && ( post.company == current_user ) %>
@@ -75,9 +80,4 @@
             <% end %>
         </tbody>
         </table>
-
-
-    
 </div>
-<br><br><br>
-<br><br><br>

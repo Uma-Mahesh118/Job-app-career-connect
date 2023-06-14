@@ -1,0 +1,36 @@
+<h1 class="text-center"> Welcome to Catalogue Ally</h1>
+
+<div class="container">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 text-center">
+                <div class="card imgs" style="width:400px">
+                    <div class="col-4 text-center card-img-top">
+                            <%= image_tag("company.jpg", width: 200, class:"rounded mx-auto d-block center imgs") %>
+                    </div>  
+                    <div class="card-body">
+                        <h4 class="card-title"> Company Login </h4>
+                        <p class="card-text text-center">
+                            Enter your Company profile 
+                        </p>
+                        <%= link_to 'Company login', login1_path, {:class=>'btn btn-success'}%>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 text-center" >
+                <div class="card imgs" style="width:400px">
+                    <div class="col-4 text-center card-img-top">
+                            <%= image_tag("candidate.jpg", width: 300, class:"rounded mx-auto d-block center imgs") %>
+                    </div>  
+                    <div class="card-body">
+                        <h4 class="card-title"> Applicant Login</h4>
+                        <p class="card-text text-center">
+                            Enter your user profile
+                        </p>
+                        <%= link_to 'Applicant Login', login2_path, {:class=>'btn btn-success'}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

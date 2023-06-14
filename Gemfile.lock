@@ -82,6 +82,14 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    carrierwave (2.2.4)
+      activemodel (>= 5.0.0)
+      activesupport (>= 5.0.0)
+      addressable (~> 2.6)
+      image_processing (~> 1.1)
+      marcel (~> 1.0.0)
+      mini_mime (>= 0.1.3)
+      ssrf_filter (~> 1.0)
     concurrent-ruby (1.2.2)
     content_disposition (1.0.0)
     crass (1.0.6)
@@ -97,6 +105,7 @@ GEM
     ffi (1.15.5)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    hirb (0.7.3)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
@@ -123,6 +132,9 @@ GEM
       net-imap
       net-pop
       net-smtp
+    mailboxer (0.15.1)
+      carrierwave (>= 0.5.8)
+      rails (>= 5.0.0)
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
@@ -215,6 +227,7 @@ GEM
     sqlite3 (1.6.3)
       mini_portile2 (~> 2.8.0)
     sqlite3 (1.6.3-x86_64-linux)
+    ssrf_filter (1.1.1)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
     thor (1.2.2)
@@ -254,10 +267,12 @@ DEPENDENCIES
   capybara
   cssbundling-rails (~> 1.1)
   debug
+  hirb
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
   letter_opener
+  mailboxer
   pg
   puma (~> 5.0)
   rails (~> 7.0.5)

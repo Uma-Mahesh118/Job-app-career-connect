@@ -14,7 +14,7 @@
                   Actions
                 </a>
                 <ul class="dropdown-menu">
-                  <li class="text-center"> Applicants </li>
+                  <li><%= link_to 'Applicants', applicants_path, {:style=>"text-decoration:none; color: black;", :class => "css_class text-center dropdown-item"}%></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><%= link_to 'Companies', companies_path, {:style=>"text-decoration:none; color: black;", :class => "css_class text-center dropdown-item"}%></li>
                   <li><hr class="dropdown-divider"></li>
@@ -50,7 +50,7 @@
                 </li>
                 <li class="nav-item active align-items-center" >
                     <a class="others css_class" > 
-                      <%= button_to "Logout", logout2_path, {method: :delete, :style=>"color:#FFFFFF; text-decoration:none;  ", :class => "css_class nav-link" } %> 
+                      <%= button_to "Logout", logout_path, {method: :delete, :style=>"color:#FFFFFF; text-decoration:none;  ", :class => "css_class nav-link" } %> 
                     </a>
                 </li>
               <% else %>
@@ -73,8 +73,3 @@
         </div>
     </div>
 </nav>
-<footer id="sticky-footer" class="flex-shrink-0 py-3 bg-primary text-white-50 fixed-bottom">
-    <div class="container text-center">
-      <small>Copyright &copy; Uma Mahesh @ Chronus</small>
-    </div>
-</footer>

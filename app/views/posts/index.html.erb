@@ -17,7 +17,7 @@
                     <hr>
                     <h5 class="card-title"> <%= link_to post.name, post_path(post), {:class=>"text-success"} %></h5>
                     <div class="mt-2">
-                        <strong > Candidates Matches : </strong> n
+                        <strong > Candidates Matches : </strong> <%= post.applicants.count%>
                     </div> 
                     <div class="mt-2">
                         <strong > Skills :  </strong>

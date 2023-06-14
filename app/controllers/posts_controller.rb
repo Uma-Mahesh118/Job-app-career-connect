@@ -16,6 +16,7 @@ class PostsController < ApplicationController
 
     def update
         if @post.update(  post_params )
+            skill_match @post , 'update'
             flash[:notice]= 'Your Account Information Updated Scuccesfully'
             redirect_to post_path(@post)
         else
@@ -27,6 +28,7 @@ class PostsController < ApplicationController
         @post = Post.new(post_params)
         @post.company = current_user
         if @post.save
+            skill_match @post , 'create'
             flash[:notice] = "Your Job post is Succesfully created"
             redirect_to posts_path
         else
@@ -54,7 +56,12 @@ class PostsController < ApplicationController
         params.require(:post).permit(:name, :description, skills: [])
     end
     def set_post
-        @post= Post.find(params[:id])
+        if Post.where(id: params[:id]).any?
+            @post= Post.find(params[:id])
+        else 
+            flash[:alert]="Job post removed. Reload for updated list"
+            redirect_back_or_to '/'
+        end
     end
     def req_same_user
         if current_user != @post.company 

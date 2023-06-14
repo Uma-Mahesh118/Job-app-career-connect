@@ -1,5 +1,7 @@
 class Applicant < ApplicationRecord
     before_save { self.email = email.downcase }
+    has_many :results
+    has_many :posts, through: :results
     serialize :skills, Array
     validates :name, presence: true, 
                         uniqueness:{case_sensitive: false}, 

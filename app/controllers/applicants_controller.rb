@@ -16,6 +16,7 @@ class ApplicantsController < ApplicationController
 
     def update
         if @applicant.update( applicant_params )
+            skill_match @applicant, 'update' 
             flash[:notice]= 'Your User profile Information Updated Scuccesfully'
             redirect_to applicant_path(@applicant)
         else
@@ -28,6 +29,7 @@ class ApplicantsController < ApplicationController
         @applicant = Applicant.new(applicant_params)
         if @applicant.save
             session[:user2_id] = @applicant.id
+            skill_match @applicant, 'create' 
             flash[:notice] = "Welcome to Catalogue Ally #{@applicant.name}, you have succesfully signed up"
             redirect_to @applicant
         else
@@ -36,7 +38,7 @@ class ApplicantsController < ApplicationController
     end  
     def destroy
         @applicant = Applicant.find(params[:id])        
-        session[:user2_id] =nil if @applicant == current_user
+        session[:user2_id] =nil if @applicant == current_user2
         @applicant.destroy
         respond_to do |format|
             format.html { redirect_to applicants_path notice: 'User Account is successfully deleted.' }
@@ -50,7 +52,12 @@ class ApplicantsController < ApplicationController
         params.require(:applicant).permit(:name, :email, :password, skills: [])
     end
     def set_applicant
-        @applicant= Applicant.find(params[:id])
+        if Applicant.where(id: params[:id]).size!=0
+            @applicant= Applicant.find(params[:id])
+        else 
+            flash[:alert]= "User deleted his profile. Reload for updated list"
+            redirect_back_or_to '/' 
+        end
     end
     def req_same_applicant
         if current_user2 != @applicant 

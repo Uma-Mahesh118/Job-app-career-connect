@@ -14,8 +14,8 @@
                     <h3 class="card-title"><%= link_to applicant.name, applicant_path(applicant), {:class=>"text-success"} %> </h3>
                 </div>
                 <div class="card-body">
-                    <h6> email    : <%= company.email%></h6>
-                    <h6> Jobs matched : n </h6>
+                    <h6> email    : <%= applicant.email%></h6>
+                    <h6> Jobs matched : <%= applicant.posts.count %> </h6>
                     <hr>
                     <%= link_to 'View Profile', applicant_path(applicant), {:class=>"btn btn-outline-success"} %>
                     <% if logged2_in? && ( applicant == current_user2 )%>

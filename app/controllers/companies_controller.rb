@@ -28,7 +28,7 @@ class CompaniesController < ApplicationController
     def create
         @company = Company.new(company_params)
         if @company.save
-            session[:user_id] = @company.id
+            session[:user1_id] = @company.id
             flash[:notice] = "Welcome to Catalogue Ally #{@company.name}, you have succesfully signed up"
             redirect_to @company
         else
@@ -37,7 +37,7 @@ class CompaniesController < ApplicationController
     end  
     def destroy
         @company = Company.find(params[:id])        
-        session[:user_id] =nil if @company == current_user
+        session[:user1_id] =nil if @company == current_user
         @company.destroy
         respond_to do |format|
             format.html { redirect_to companies_path notice: 'Account is successfully deleted.' }

@@ -1,27 +1,25 @@
 <div id="page-content">
-  <h2 class="text-center mt-4"> <strong>Role: </strong> <%= @post.name %></h2>
+  <h3 class="text-center mt-4"> <%= @post.name %> Role </h3>
   <div class="container">
     <div class="row justify-content-md-center">
       <div class="col-8 mt-4">
         <div class="card text-center shadow mb-5 bg-white rounded">
           <div class="card-header font-italic">
-            by  <%= link_to @post.company.name, company_path(@post.company) , {:class=>"text-info"}%> 
+            by  <%= link_to @post.company.name.capitalize, company_path(@post.company) , {:class=>"text-info"}%> 
             <hr>
-            <h5>
-              <div class="card-text text-center">
+            <div class="card-text text-center">
                 <strong> Description : </strong>
                 <%= @post.description%>
-              </div>
-            </h5>
+            </div>
+            <hr>
             <div class="mt-2">
               <strong > Skills : </strong>
               <% if @post.skills.any? %>
                 &bull;
-                <% @post.skills.each do |skill| %>
-                    <% if skill != "" %>
-                        <%= Skill.find(skill).name %> &bull;
-                    <%end%>
-                <% end%>              
+                <% s=  Skill.where(id: @post.skills) %>
+                <% s.each do |skill| %>
+                    <%=skill.name %> &bull;
+                <%end%>           
               <% end %>
             </div> 
           </div>
@@ -40,5 +38,52 @@
     </div>
   </div>
 </div>
-<h3 class="text-center mt-4"> Total Candidates selected </h3>
-<div class="container">
+<h3 class="text-center mt-4"> Total Candidates selected : <%= @post.applicants.count%> </h3>
+<div class="container p-3">
+    
+    <table class="table table-bordered border-primary table-hover">
+        <thead class="table-dark"> 
+            <tr>
+            <th scope="col"> Name </th>
+            <th scope="col"> email </th>
+            <th scope="col"> Skills </th>
+            <th scope="col"> Percentage Matched </th>
+            <th scope="col"> Actions </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @post.applicants.each do |applicant| %>
+                <tr>
+                    <td > <%= applicant.name %> </th>
+                    <td > <%= applicant.email %>...</th>
+                    <td >
+                        <% if applicant.skills.any? %>
+                            &bull;
+                            <% applicant.skills.each do |skill| %>
+                                <% if skill != "" %>
+                                    <%= Skill.find(skill).name %> &bull;
+                                <%end%>
+                            <% end%>
+                        <% else %>
+                            <strong>No skills Mentioned </strong>
+                        <% end %>
+                    </td>
+                    <td>
+                      <div class="progress">
+                            <% @count= Result.where( post_id: @post, applicant_id: applicant).first %>
+                            <div class="progress-bar" role="progressbar" style="width: <%= (@count.matches * 100)/@post.skills.count %>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><%= (@count.matches * 100)/@post.skills.count %>%</div>
+                        </div>
+                        <div class="text-center"><%= @count.matches %> out of <%= @post.skills.count %> matched</div>
+                      </div>
+                    </td>
+                    <td> 
+                        <%= link_to 'Show Profile', applicant_path(applicant), {:class=>"btn btn-success btn-sm"} %>
+                        <% if logged_in? && ( @post.company == current_user ) %>
+                            <button class="btn btn-primary btn-sm"> Message </button>
+                        <%end%>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+        </table>
+</div>

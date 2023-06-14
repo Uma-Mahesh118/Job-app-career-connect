@@ -1,0 +1,49 @@
+<h1 class="text-center"> Welcome to Catalogue Ally</h1>
+
+<div class="container">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 text-center">
+                <div class="card imgs" style="width:400px">
+                    <div class="col-4 text-center card-img-top">
+                            <%= image_tag("company.jpg", width: 200, class:"rounded mx-auto d-block center imgs") %>
+                    </div>  
+                    <div class="card-body">
+                        <h4 class="card-title"> Sign-up as Company </h4>
+                        <p class="card-text">
+                            <ul style="Text-align:left">
+                                <li>Post your jobs with required skills</li>
+                                <li>We'll find Matching intellects</li>
+                            </ul>
+                        </p>
+                        <%= link_to 'Company Sign-up', signup1_path, {:class=>'btn btn-success'}%>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 text-center">
+                <div class="card imgs" style="width:400px">
+                    <div class="col-4 text-center card-img-top">
+                            <%= image_tag("candidate.jpg", width: 300, class:"rounded mx-auto d-block center imgs") %>
+                    </div>  
+                    <div class="card-body">
+                        <h4 class="card-title"> Sign-up as Applicant </h4>
+                        <p class="card-text">
+                        <ul style="Text-align:left">
+                            <li>Add your skills</li>
+                            <li>We'll find Matching Job</li>
+                        </ul>
+                        </p>
+                        <%= link_to 'Applicant Sign-up', signup2_path, {:class=>'btn btn-success'}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+ 
