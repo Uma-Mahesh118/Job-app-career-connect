@@ -78,13 +78,13 @@
                       </div>
                     </td>
                     <td> 
-                        <%= link_to 'Show Profile', applicant_path(applicant), {:class=>"btn btn-success btn-sm"} %>
+                        <%= link_to 'Show Profile', applicant_path(applicant), {:class=>"btn btn-primary btn-sm"} %>
                         <% if logged_in? && ( @post.company == current_user ) %>
-                            <button class="btn btn-primary btn-sm"> Message </button>
+                          <%= button_to "Message", new_conversation_path, params: {applicant_id: applicant.id }, method: :get, class:"btn btn-success btn-sm" %> </button>
                         <%end%>
                     </td>
                 </tr>
             <% end %>
         </tbody>
-        </table>
+    </table>
 </div>

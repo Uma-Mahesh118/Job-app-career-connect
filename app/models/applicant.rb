@@ -16,4 +16,6 @@ class Applicant < ApplicationRecord
                     length: {maximum:105},
                     format: { with: VALIDITY_CHECK_EMAIL }
     has_secure_password
+
+    has_many :conversations
 end

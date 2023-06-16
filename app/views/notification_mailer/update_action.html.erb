@@ -1,21 +1,18 @@
-<h1>We are happy to share that your skills Matched....</h1>
+<h1>We are happy to share that Skills Matched....</h1>
 
 <div class="container mt-4">
-    Catalogue Ally, Welcomes you to our Community.
     <%= image_tag("logo.png", width: 300) %>
     <% if @user.check %>
       <ul>
-        <li>Dear User, We welcome you to our application.</li> 
-        <li>View your profile to find the jobs that match your skills </li>
-        <li>We'll update you with mail. If there are any Future Job Posts. </li>
-        <li><strong> "As we said- Your Dream Job awaits... "</strong></li>
+        <li>Check your profile for new job post added.</li>
+        <li>Message to the co-ordinator from the application.</li>
+        <li>Best of luck from our team</li>
       </ul>
     <%else %>
       <ul>
-        <li>Your Company can post the Job posts in our Web Application.</li> 
-        <li>Our Skill Match feature helps you to find suitable applicants in seconds </li>
-        <li>You can view the matched profiles, and also message them in our web application. </li>
-        <li>We'll update you with mail. If there are any Future Matches to your Job post.</li>
+        <li>One of your Job post required skills matched with a Candidate from our application</li> 
+        <li>Message the candidate from our application. </li>
+        <li>We hope you get the best. </li>
       </ul>
     <%end%>
 

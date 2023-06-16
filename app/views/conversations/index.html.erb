@@ -1,0 +1,69 @@
+<h3 class="text-center"> Your Conversations </h3>
+<div id="change">
+<div class="container">
+    <div class="row justify-content-md-center">
+    <% if logged_in? %>
+        <% @conversations.each do |converse|%>
+            <% first= Applicant.find(converse.applicant_id)%>
+            <% post = (Applicant.find(first.id).posts)  & (Company.find(current_user.id).posts)%>
+            <div class="col-6">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <div class="col-4 text-center card-img-top mt-3">
+                                <%= gravatar_for first %>
+                            </div> 
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= first.name.capitalize%></h5>
+                                <div class= "container">
+                                    For Posts :
+                                    <% post.each do |find|%>
+                                    <%= find.name %>
+                                    <%end%>
+                                </div>
+                                <br>
+                                <%= button_to "Message now", new_conversation_path, params: {applicant_id: first.id }, method: :get, class:"btn btn-success btn-sm" %> </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <%end%>
+    <% elsif logged2_in? %>
+        <% @conversations.each do |converse|%>
+            <% company = Company.find(converse.company_id)%>
+            <% post = (Post.where(company_id: company.id))  & (Applicant.find(current_user2.id).posts)%>
+            <div class="col-6">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <div class="col-4 text-center card-img-top">
+                                <%= find_image company %>
+                            </div> 
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= company.name.capitalize%></h5>
+                                <div class= "container">
+                                    For Posts :
+                                    <% post.each do |find|%>
+                                    <%= find.name %>
+                                    <%end%>
+                                </div>
+                                <br>
+                                <% if logged2_in? && ( session[:user2_id] == current_user2.id ) %>
+                                    <%= button_to "Message now", new_conversation_path, params: {company_id: company.id }, method: :get, class:"btn btn-success btn-sm" %> </button>
+                                <%end%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <%end%>
+    <% end%>
+    </div>
+</div>
+</div>
+ 

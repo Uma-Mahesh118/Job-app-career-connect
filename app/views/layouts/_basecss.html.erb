@@ -1,3 +1,18 @@
+<script>
+    function reloadDiv() {
+      $.ajax({
+        url: "messages_path",
+        success: function(response) {
+          $("#change").html(response); // Update the content of the div with the response
+        }
+      });
+    }
+
+    // Function to reload the div every 10 seconds
+    function startReload() {
+      setInterval(reloadDiv, 10000); // 10,000 milliseconds = 10 seconds
+    }
+</script>
 <style>
       .navbar { background-color: dodgerblue !important; }
       .nav-link { color: white !important}
@@ -36,9 +51,7 @@
         border-radius: 4px;
         padding: 5px;
       }
-      .imgs:hover {
-        box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
-      }
+
       tr:nth-child(even) {background-color: #f2f2f2;}
       .footer {
         position: relative;

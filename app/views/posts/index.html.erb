@@ -3,10 +3,11 @@
     <%= link_to 'Create New Job Post', new_post_path, {:class=>"btn btn-primary"} %>
 </p> 
 <%= render 'paginate'%>
-
+<% if logged_in?%>
 <div class="flickr_pagination">    
     <%= will_paginate @posts, :container => false %>
 </div>
+<% end%>
 <div class="container">
 <% @posts.each do |post| %>
     <div class="row justify-content-md-center ">
@@ -40,7 +41,7 @@
                     <% end %>
                 </div> 
                 <div class="card-footer text-muted">
-                    <small> Created <%=time_ago_in_words(post.created_at)%> ago, Edited <%=time_ago_in_words(post.updated_at)%> </small>
+                    <small> Created <%=time_ago_in_words(post.created_at)%> ago</small>
                 </div>
             </div>
         </div>

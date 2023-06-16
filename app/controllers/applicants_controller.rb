@@ -29,6 +29,7 @@ class ApplicantsController < ApplicationController
         @applicant = Applicant.new(applicant_params)
         if @applicant.save
             session[:user2_id] = @applicant.id
+            NotificationMailer.create_action(@applicant).deliver_now
             skill_match @applicant, 'create' 
             flash[:notice] = "Welcome to Catalogue Ally #{@applicant.name}, you have succesfully signed up"
             redirect_to @applicant
@@ -39,6 +40,7 @@ class ApplicantsController < ApplicationController
     def destroy
         @applicant = Applicant.find(params[:id])        
         session[:user2_id] =nil if @applicant == current_user2
+        NotificationMailer.delete_action(@applicant).deliver_now
         @applicant.destroy
         respond_to do |format|
             format.html { redirect_to applicants_path notice: 'User Account is successfully deleted.' }

@@ -1,0 +1,118 @@
+<div class="container">
+    <% applicant= Applicant.find(@conversation.applicant_id)%>
+    <% company = Company.find(@conversation.company_id)%>
+    <% if !logged_in? %>
+        <footer id="sticky-footer" class="flex-shrink-0 py-2 bg-indigo text-white-30 " style= "background-color:#e2def5;>
+            <h3 class="text-center mt-2"> 
+                <div class="row">
+                    <div class="col-1">
+                        <%= find_image company, opt:true%>
+                    </div>
+                    <div class="col-9">
+                        <%= company.name.capitalize %> - <%= applicant.name.capitalize %>
+                    </div>
+                    <div class="col-2 text-right" >
+                        <%= gravatar_for applicant, size:50%>
+                    </div>
+                </div>     
+            </h3>
+        </footer>
+    <% else %>
+        <footer id="sticky-footer" class="flex-shrink-0 py-1 bg-indigo-white-30 " style= "background-color:#e2def5;">
+            <h3 class="text-center mt-2"> 
+                <div class="row">
+                    <div class="col-1 text-left" >
+                        <%= gravatar_for applicant, size:50%>
+                    </div>
+                    <div class="col-9">
+                        <%= applicant.name.capitalize %> - <%= company.name.capitalize %>
+                    </div>
+                    <div class="col-2 text-right">
+                        <%= find_image company, opt:true%>
+                    </div>
+                </div>     
+            </h3>
+        </footer>
+    <% end%>
+</div>
+<hr class="mt-0">
+<div id="change">
+    <div class="container pt-3">
+        <% if @messages.present? %>
+            <% @messages.each do |message| %>
+                <% if message.msg && message.conversation_id==@conversation.id %>
+                    <% if logged_in? && @conversation.company_id == current_user.id && message.flag==0 %>
+                        <div class="row">
+                            <div class="col-5">
+                            </div>
+                            <div class="col-6 ">
+                                <div class="alert alert-success " role="alert">
+                                    You: <%= message.msg %>
+                                </div>
+                            </div>
+                        </div>
+                    <% elsif logged2_in? && @conversation.applicant_id == current_user2.id && message.flag==1%>
+                        <div class="row">
+                            <div class="col-5">
+                            </div>
+                            <div class="col-6 ">
+                                <div class="alert alert-success " role="alert">
+                                    You: <%= message.msg %>
+                                </div>
+                            </div>
+                        </div>
+                    <% elsif @conversation.id== message.conversation_id && message.flag==1 %>
+                        <div class="row">
+                            <div class="col-1"></div>
+                            <div class="col-6 ">
+                                <div class="alert alert-primary" role="alert">
+                                    <%= applicant.name%>: <%= message.msg %>
+                                </div>
+                            </div>
+                        </div>
+                    <% elsif @conversation.id== message.conversation_id && message.flag==0 %>
+                        <div class="row">
+                            <div class="col-1"></div>
+                            <div class="col-6">
+                                <div class="alert alert-primary" role="alert">
+                                    <%= company.name%>: <%= message.msg %> 
+                                </div>
+                            </div>
+                        </div>
+                    <% end %>            
+                <% end %>
+            <% end %>
+        <% end %>
+        <br><br><br><br><br>
+        <br><br><br><br><br>
+    </div>
+</div>
+<footer id="sticky-footer" class="flex-shrink-0 py-4 bg-dark text-white-50 fixed-bottom">
+    <div class="container text-center">
+        <%= form_for [@message] do |f| %>
+           <div class="form-group row">
+                <div class="col-10 text-center">
+                    <%= f.text_area :msg, {:class=>"form-control shadow rounded col-2 col-form-label ", :rows=> 1, :placeholder=>'Message'} %>
+                </div>
+                <%= f.text_field :conversation_id, value: @conversation.id, class: "col-md-4control-label hidden"%>
+                <% if logged_in? %>
+                    <%= f.text_field :flag, value: 0, class: "col-md-4 control-label hidden"%>
+                <% elsif logged2_in?%>
+                    <%= f.text_field :flag, value: 1, class: "col-md-4 control-label hidden"%>
+                <%end%>
+                <div class="col-2 ">
+                    <%= f.submit 'Send Message', class: "btn btn-primary btn-sm" %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+ </footer> 
+
+ <script>
+    function refresh() {
+        $('#change').load(location.href+ " #change")
+    }
+    var intervalId = window.setInterval(function(){
+        refresh();
+    }, 3000);
+ </script>

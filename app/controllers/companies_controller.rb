@@ -28,6 +28,7 @@ class CompaniesController < ApplicationController
     def create
         @company = Company.new(company_params)
         if @company.save
+            #NotificationMailer.create_action(@company).deliver_now
             session[:user1_id] = @company.id
             flash[:notice] = "Welcome to Catalogue Ally #{@company.name}, you have succesfully signed up"
             redirect_to @company
@@ -38,7 +39,7 @@ class CompaniesController < ApplicationController
     def destroy
         @company = Company.find(params[:id])        
         session[:user1_id] =nil if @company == current_user
-        NotificationMailer.update_action(@company) 
+        #NotificationMailer.delete_action(@company) 
         @company.destroy
         respond_to do |format|
             format.html { redirect_to companies_path notice: 'Account is successfully deleted.' }

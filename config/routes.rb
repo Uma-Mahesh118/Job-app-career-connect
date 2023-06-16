@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   post 'login2', to: 'sessions#create1'
   resources :applicants, except: [:new]
   resources :posts
+  resources :conversations
+  resources :messages
 end

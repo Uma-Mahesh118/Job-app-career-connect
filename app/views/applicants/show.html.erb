@@ -29,7 +29,7 @@
                             <%end%>
                         </div> 
                         <div class="card-footer text-muted">
-                            <small> Account created <%=time_ago_in_words(@applicant.created_at)%> ago, Edited <%=time_ago_in_words(@applicant.updated_at)%> </small>
+                            <small> Account created <%=time_ago_in_words(@applicant.created_at)%> ago </small>
                         </div>
                     </div>
                 </div>
@@ -55,38 +55,38 @@
             </tr>
         </thead>
         <% @applicant.posts.each do |post| %>
-                <tr>
-                    <td > <%= Company.find(post.company_id).name %> </td> 
-                    <td> <%= post.name %>  </td>
-                    <td > <%= truncate(post.description, length: 15)%>...</td >
-                    <td >
-                        <% if post.skills.any? %>
-                            &bull;
-                            <% s=  Skill.where(id: post.skills) %>
-                            <% s.each do |skill| %>
-                                <%=skill.name %> &bull;
-                            <%end%>
-                        <% else %>
-                            <strong>No skills Mentioned </strong>
-                        <% end %>
-                    </td>
-                    <td>
-                         <div class="progress">
-                            <% @count= Result.where( post_id: post, applicant_id: @applicant).first %>
-                            <% @req= post.skills.count %>
-                            <% @req= @req-1 %>
-                            <div class="progress-bar" role="progressbar" style="width: <%= (@count.matches * 100)/(@req) %>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><%= (@count.matches * 100)/(@req) %>%</div>
-                        </div>
-                        <div class="text-center"><%= @count.matches %> out of <%= @req %> matched</div>
-                     </td>
-                    <td> 
-                        <%= link_to 'Show Post', post_path(post), {:class=>"btn btn-success btn-sm"} %>
-                        <% if logged_in? && ( session[:user2_id] == current_user2 ) %>
-                            <button class="btn btn-primary btn-sm"> Message </button>
+            <tr>
+                <td > <%= Company.find(post.company_id).name %> </td> 
+                <td> <%= post.name %>  </td>
+                <td > <%= truncate(post.description, length: 15)%>...</td >
+                <td >
+                    <% if post.skills.any? %>
+                        &bull;
+                        <% s=  Skill.where(id: post.skills) %>
+                        <% s.each do |skill| %>
+                            <%=skill.name %> &bull;
                         <%end%>
+                    <% else %>
+                        <strong>No skills Mentioned </strong>
+                    <% end %>
+                </td>
+                <td>
+                    <div class="progress">
+                        <% @count= Result.where( post_id: post, applicant_id: @applicant).first %>
+                        <% @req= post.skills.count %>
+                        <% @req= @req-1 %>
+                        <div class="progress-bar" role="progressbar" style="width: <%= (@count.matches * 100)/(@req) %>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><%= (@count.matches * 100)/(@req) %>%</div>
+                    </div>
+                    <div class="text-center"><%= @count.matches %> out of <%= @req %> matched</div>
                     </td>
-                </tr>
-            <% end %>
+                <td> 
+                    <%= link_to 'View Post', post_path(post), {:class=>"btn btn-primary btn-sm"} %>
+                    <% if logged2_in? && ( session[:user2_id] == current_user2.id ) %>
+                        <%= button_to "Message", new_conversation_path, params: {company_id: post.company_id }, method: :get, class:"btn btn-success btn-sm" %> </button>
+                    <%end%>
+                </td>
+            </tr>
+        <% end %>
         </tbody>
         </table>
 </div>

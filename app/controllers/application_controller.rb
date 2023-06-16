@@ -43,7 +43,8 @@ class ApplicationController < ActionController::Base
                 if ( (n-1) * 100)/(m-1)  >= 80
                     if !result.where(post_id: post.id,applicant_id: applicant.id).any?
                         res= Result.new(post_id: post.id,applicant_id: applicant.id, matches: n-1)
-                        res.save               
+                        res.save          
+                        NotificationMailer.update_action(applicant).deliver_now    
                     end                    
                 else
                     if result.where(post_id: post.id,applicant_id: applicant.id).any?
@@ -63,6 +64,7 @@ class ApplicationController < ActionController::Base
                     if !result.where(post_id: new_post.id,applicant_id: applicant.id ).any?
                         res = Result.new(post_id: new_post.id,applicant_id: applicant.id, matches:n-1 )                  
                         res.save
+                        NotificationMailer.update_action(current_user2).deliver_now 
                     end
                 else
                     if result.where(post_id: new_post.id,applicant_id: applicant.id).any?

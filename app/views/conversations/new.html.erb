@@ -1,0 +1,65 @@
+<h3 class="text-center mt-4">Create Conversation</h2>
+<div class="container">
+    <% if logged_in? %>
+        <div class="row">
+            <div class="col-5 text-center">
+                <div class="card imgs" style="width:400px">
+                    <div class="col-4 text-center card-img-top">
+                        <%= find_image current_user %>
+                    </div>  
+                    <div class="card-body">
+                        <h5 class="card-title"> <%= current_user.name%> </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 text-center">
+                <%= button_to "Start Messaging", messages_path, params: {conversation_id: @conversation.id}, method: :get, class:"btn btn-primary"%> </button>
+            </div>
+            <div class="col-5 text-center">
+                <div class="card imgs" style="width:400px">
+                    <div class="col-4 text-center card-img-top">
+                        <%= gravatar_for @other, size:150%>
+                    </div> 
+                    <div class="card-body">
+                            <h5 class="card-title"> <%= @other.name%> </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% elsif logged2_in?%>
+        <div class="row">
+            <div class="col-5 text-center">
+                <div class="card imgs" style="width:400px">
+                    <div class="col-4 text-center card-img-top">
+                        <%= gravatar_for current_user2, size:180%>
+                    </div>  
+                    <div class="card-body">
+                        <h5 class="card-title"> <%= current_user2.name%> </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 text-center">
+                <%= button_to "Start Messaging", messages_path, params: {conversation_id: @conversation.id}, method: :get, class:"btn btn-primary"%> </button>
+            </div>
+            <div class="col-5 text-center">
+                <div class="card imgs" style="width:400px"> 
+                    <div class="col-4 text-center card-img-top">
+                        <%= find_image @other%>
+                    </div>  
+                    <div class="card-body">
+                        <div class="card-body">
+                            <h5 class="card-title"> <%= @other.name%> </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% end%>        
+</div>
+
+
+
+
+
+
+ 

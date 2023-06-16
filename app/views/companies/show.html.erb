@@ -3,7 +3,7 @@
     <div class="row">
         <h2 class="text-center mt-4"><%= @company.name %>'s Profile</h2>
         <div class="col-4 text-center mt-4 " style="top:50%; bottom:50">
-            <%= find_image @company, size:100%>
+            <%= find_image @company %>
         </div>     
         <div class="col-8 text-center">
             <div class="row justify-content-md-center ">
@@ -14,15 +14,15 @@
                         </div>
                         <div class="card-body">
                             <h6> email    : <%= @company.email%></h6>
-                            <hr>
                             <% if logged_in? && (@company == current_user )%>
+                                <hr>
                                 <%= link_to 'View Profile', company_path(@company), {:class=>"btn btn-outline-success"} %>
                                 <%= link_to 'Edit Profile', edit_company_path(@company), {:class=>"btn btn-outline-info"}%>
                                 <%= button_to 'Delete Profile', company_path(@company), method: "delete", data: { confirm: 'Are you sure?'} , class: "btn btn-outline-danger" %>
                             <%end%>
                         </div> 
                         <div class="card-footer text-muted">
-                            <small> Account created <%=time_ago_in_words(@company.created_at)%> ago, Edited <%=time_ago_in_words(@company.updated_at)%> </small>
+                            <small> Account created <%=time_ago_in_words(@company.created_at)%> ago.</small>
                         </div>
                     </div>
                 </div>
