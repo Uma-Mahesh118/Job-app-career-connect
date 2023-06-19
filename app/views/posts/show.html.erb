@@ -11,7 +11,6 @@
                 <strong> Description : </strong>
                 <%= @post.description%>
             </div>
-            <hr>
             <div class="mt-2">
               <strong > Skills : </strong>
               <% if @post.skills.any? %>
@@ -25,13 +24,12 @@
           </div>
           <div class="card-body">
             <% if logged_in? && ( @post.company == current_user )%>
-              <%= link_to "Edit", edit_post_path(@post), class: "btn btn-outline-info" %>
-              <%= button_to 'Delete', post_path(@post), { method: :delete, :class=>"btn btn-outline-danger"}%> 
+              <%= link_to "Edit Post", edit_post_path(@post), class: "btn btn-outline-info btn-sm mb-2" %>
+              <%= button_to 'Delete Post', post_path(@post), { method: :delete, :onclick=>'func()', :class=>"btn btn-outline-danger btn-sm mb-2"}%> 
             <%end%>
             <br>
           <div class="card-footer text-muted">
             <small>Created <%= time_ago_in_words(@post.created_at) %> ago, 
-            edited <%= time_ago_in_words(@post.updated_at) %> ago</small>
           </div>
         </div>
       </div>
@@ -47,7 +45,7 @@
             <th scope="col"> Name </th>
             <th scope="col"> email </th>
             <th scope="col"> Skills </th>
-            <th scope="col"> Percentage Matched </th>
+            <th scope="col"> (%) Matched </th>
             <th scope="col"> Actions </th>
             </tr>
         </thead>
@@ -72,15 +70,18 @@
                       <div class="progress">
                             <% @count= Result.where( post_id: @post, applicant_id: applicant).first %>
                             <% req= @post.skills.count%>
-                            <div class="progress-bar" role="progressbar" style="width: <%= (@count.matches * 100)/(req -1) %>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><%= (@count.matches * 100)/(req -1) %>%</div>
+                            <% @matches = (applicant.skills) & (@post.skills) %>
+                            <% match_count = @matches.count %>
+                            <% match_count =  match_count-1%>
+                            <div class="progress-bar" role="progressbar" style="width: <%= (match_count * 100)/(req -1) %>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><%= (match_count * 100)/(req -1) %>%</div>
                         </div>
-                        <div class="text-center"><%= @count.matches  %> out of <%= req -1 %> matched</div>
+                        <div class="text-center"><%= match_count  %> out of <%= req -1 %> matched</div>
                       </div>
                     </td>
                     <td> 
                         <%= link_to 'Show Profile', applicant_path(applicant), {:class=>"btn btn-primary btn-sm"} %>
                         <% if logged_in? && ( @post.company == current_user ) %>
-                          <%= button_to "Message", new_conversation_path, params: {applicant_id: applicant.id }, method: :get, class:"btn btn-success btn-sm" %> </button>
+                          <%= button_to "Message ", new_conversation_path, params: {applicant_id: applicant.id }, method: :get, class:"btn btn-success btn-sm mt-1 width" %> </button>
                         <%end%>
                     </td>
                 </tr>
@@ -88,3 +89,9 @@
         </tbody>
     </table>
 </div>
+
+<script>
+  function func(){
+    confirm("Are you sure?")
+  }
+</script>

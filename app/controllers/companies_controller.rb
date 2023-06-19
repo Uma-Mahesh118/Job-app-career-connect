@@ -6,9 +6,13 @@ class CompaniesController < ApplicationController
         @company= Company.new
     end
     def index
-        @companies= Company.paginate(page: params[:page], per_page: 3)
+        @companies= Company.paginate(page: params[:page], per_page: 4)
     end
     def show
+        if !logged_in? && !logged2_in?
+            flash[:alert]= "Log in before you see full posts"
+            redirect_to login_path
+        end
         @posts = Company.find(params[:id]).posts
     end    
 
@@ -54,6 +58,10 @@ class CompaniesController < ApplicationController
         params.require(:company).permit(:name, :email, :password)
     end
     def set_company
+        if Company.where(id: params[:id])==[]
+            flash[:alert]= "Company Profile deleted.."
+            redirect_to companies_path 
+        end
         @company= Company.find(params[:id])
     end
     def req_same_company

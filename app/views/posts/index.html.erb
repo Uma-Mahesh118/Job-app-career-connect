@@ -1,53 +1,36 @@
 <h1 class="text-center mt-4"> List of all Job Posts</h1>
 <p class= 'text-center'>
-    <%= link_to 'Create New Job Post', new_post_path, {:class=>"btn btn-primary"} %>
+    <% if logged_in?%>
+        <%= link_to 'Create New Job Post', new_post_path, {:class=>"btn btn-primary"} %>
+    <% end%>
 </p> 
 <%= render 'paginate'%>
-<% if logged_in?%>
 <div class="flickr_pagination">    
     <%= will_paginate @posts, :container => false %>
 </div>
-<% end%>
+
 <div class="container">
-<% @posts.each do |post| %>
-    <div class="row justify-content-md-center ">
-        <div class="col-8 mt-4">
-            <div class="card text-center shadow mb-5 bg-white rounded">
-                <div class="card-header font-italic">
-                    by <%= link_to post.company.name.capitalize, company_path(post.company) , {:class=>"text-info"}%>
-                    <hr>
-                    <h5 class="card-title"> <%= link_to post.name, post_path(post), {:class=>"text-success"} %></h5>
-                    <div class="mt-2">
-                        <strong > Candidates Matches : </strong> <%= post.applicants.count%>
+    <div class="row justify-content-md-center">
+        <% @posts.each do |post| %>
+            <div class="col-5 mt-4 ">
+                <div class="card text-center shadow mb-5 bg-white rounded ">
+                    <div class="card-header font-italic">
+                        <h5 class="card-title"> <%= link_to post.name, post_path(post), {:class=>"text-success"} %></h5> 
+                    </div>
+                    <div class="card-body">
+                        by <%= link_to post.company.name.capitalize, company_path(post.company) , {:class=>"text-info"}%>
+                        <br>
+                        Description: <%= truncate(post.description, length: 20) %>
+                        <br>
+                        <%= link_to 'Show', post_path(post), {:class=>"btn btn-outline-success mt-2"} %>
                     </div> 
-                    <div class="mt-2">
-                        <strong > Skills :  </strong>
-                        <% if post.skills.any? %>
-                            &bull;
-                            <% post.skills.each do |skill| %>
-                                <% if skill != "" %>
-                                    <%= Skill.find(skill).name %> &bull;
-                                <%end%>
-                            <% end%>
-                        <% end %>
-                    </div> 
-                </div>
-                <div class="card-body">
-                    
-                    <%= link_to 'Show', post_path(post), {:class=>"btn btn-outline-success"} %>
-                    <% if logged_in? && ( post.company == current_user )%>
-                        <%= link_to 'Edit', edit_post_path(post), {:class=>"btn btn-outline-info"}%>
-                        <%= button_to 'Delete', post_path(post), {method: :delete , :class=>"btn btn-outline-danger"}%>
-                    <% end %>
-                </div> 
-                <div class="card-footer text-muted">
-                    <small> Created <%=time_ago_in_words(post.created_at)%> ago</small>
+                    <div class="card-footer text-muted">
+                        <small> Posted <%=time_ago_in_words(post.created_at)%> ago</small>
+                    </div>
                 </div>
             </div>
-        </div>
+        <% end %>
     </div>
-<% end %>
-
 <div class="flickr_pagination mb-4">    
     <%= will_paginate @posts, :container => false %>
 </div>

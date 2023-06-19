@@ -14,7 +14,11 @@
     }
 </script>
 <style>
+
       .navbar { background-color: dodgerblue !important; }
+      .navbar-custom {
+        height: 73px;
+      }
       .nav-link { color: white !important}
       #logo { float: left; padding-left:10px;  font-size: 1.7em;  color: #fff;  text-transform: uppercase; letter-spacing: 2px;  font-weight: bold; }
       #dropdowns { padding-left:10px;  font-size: 1em;  color: #fff;  letter-spacing: -1px;  }
@@ -51,6 +55,15 @@
         border-radius: 4px;
         padding: 5px;
       }
+      .logo-img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+      }
 
       tr:nth-child(even) {background-color: #f2f2f2;}
       .footer {
@@ -60,5 +73,11 @@
         margin-top: auto;
       }
       .hidden { display: none;}
-      
+      .width { width: 100px; }    
+      li > .nav-link {
+        display: inline-block;
+      }  
+      .footer-custom{
+        height:40px
+      }
 </style>

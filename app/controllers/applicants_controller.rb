@@ -6,11 +6,14 @@ class ApplicantsController < ApplicationController
         @applicant= Applicant.new
     end
     def index
-        @applicants= Applicant.paginate(page: params[:page], per_page: 3)
+        @applicants= Applicant.paginate(page: params[:page], per_page: 4)
     end
     def show
-    end    
-
+        if !logged_in? && !logged2_in?
+            flash[:alert] = "Login before you see applicant Profiles"
+            redirect_to login_path
+        end    
+    end
     def edit 
     end
 
@@ -18,6 +21,7 @@ class ApplicantsController < ApplicationController
         if @applicant.update( applicant_params )
             skill_match @applicant, 'update' 
             flash[:notice]= 'Your User profile Information Updated Scuccesfully'
+            skill_match @applicant, 'update'
             redirect_to applicant_path(@applicant)
         else
             flash[:alert]= "You can only edit your company profile"
@@ -54,7 +58,7 @@ class ApplicantsController < ApplicationController
         params.require(:applicant).permit(:name, :email, :password, skills: [])
     end
     def set_applicant
-        if Applicant.where(id: params[:id]).size!=0
+        if Applicant.where(id: params[:id]) != []
             @applicant= Applicant.find(params[:id])
         else 
             flash[:alert]= "User deleted his profile. Reload for updated list"

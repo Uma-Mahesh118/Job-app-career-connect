@@ -1,7 +1,11 @@
 <%=render 'paginate'%>
 <div class="container">
     <div class="row">
-        <h2 class="text-center mt-4"><%= @applicant.name %>'s Profile</h2>
+        <% if logged_in?%>
+            <h2 class="text-center mt-4">Your Profile</h2>
+        <% else %>
+            <h2 class="text-center mt-4"><%= @applicant.name %>'s Profile</h2>
+        <% end%>
         <div class="col-4 text-center mt-4">
             <%= gravatar_for @applicant, size:200%>
         </div> 
@@ -10,22 +14,16 @@
                 <div class="col-11 mt-4">
                     <div class="card text-center shadow mb-5 bg-white rounded">
                         <div class="card-header ">
-                            <h5 class="card-title text-italics">Jobs matched : <%= @applicant.posts.count%> </h5>
+                            <h6> email    : <%= @applicant.email%></h6>
                         </div>
                         <div class="card-body">
-                            <h6> email    : <%= @applicant.email%></h6>
-                            <hr>
+                            Skills: 
                             <% if @applicant.skills.any? %>
                                 &bull;
                                 <% s=  Skill.where(id: @applicant.skills) %>
                                 <% s.each do |skill| %>
                                     <%=skill.name %> &bull;
                                 <%end%>
-                            <%end%>
-                            <% if logged2_in? && (@applicant == current_user2 )%>
-                                <hr>
-                                <%= link_to 'Edit Profile', edit_applicant_path(@applicant), {:class=>"btn btn-outline-info"}%>
-                                <%= button_to 'Delete Profile', applicant_path(@applicant), method: "delete", data: { confirm: 'Are you sure?'} , class: "btn btn-outline-danger" %>
                             <%end%>
                         </div> 
                         <div class="card-footer text-muted">
@@ -45,12 +43,12 @@
     
     <table class="table table-bordered border-primary table-hover">
         <thead class="table-dark"> 
-            <tr>
+            <tr class="text-center">
             <th scope="col"> Company </th>
-            <th scope="col"> Post </th>
+            <th scope="col"> Role </th>
             <th scope="col"> Description </th>
             <th scope="col"> Skills Required </th>
-            <th scope="col"> Percentage Matched </th>
+            <th scope="col"> % Matched </th>
             <th scope="col"> Actions </th>
             </tr>
         </thead>
@@ -73,16 +71,18 @@
                 <td>
                     <div class="progress">
                         <% @count= Result.where( post_id: post, applicant_id: @applicant).first %>
-                        <% @req= post.skills.count %>
-                        <% @req= @req-1 %>
-                        <div class="progress-bar" role="progressbar" style="width: <%= (@count.matches * 100)/(@req) %>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><%= (@count.matches * 100)/(@req) %>%</div>
+                        <% req= post.skills.count %>
+                        <% @matches = (@applicant.skills) & (post.skills) %>
+                        <% match_count = @matches.count %>
+                        <% match_count =  match_count-1%>
+                        <div class="progress-bar" role="progressbar" style="width: <%= (match_count* 100)/(req -1) %>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><%= (match_count * 100)/(req -1) %>%</div>
                     </div>
-                    <div class="text-center"><%= @count.matches %> out of <%= @req %> matched</div>
+                    <div class="text-center"><%= match_count%> out of <%= req -1 %> matched</div>
                     </td>
                 <td> 
-                    <%= link_to 'View Post', post_path(post), {:class=>"btn btn-primary btn-sm"} %>
-                    <% if logged2_in? && ( session[:user2_id] == current_user2.id ) %>
-                        <%= button_to "Message", new_conversation_path, params: {company_id: post.company_id }, method: :get, class:"btn btn-success btn-sm" %> </button>
+                    <%= link_to 'View Post', post_path(post), {:class=>"btn btn-primary btn-sm mb-1"} %>
+                    <% if logged2_in? && @applicant==current_user2 %>
+                        <%= button_to "Message", new_conversation_path, params: {company_id: post.company_id }, method: :get, class:"btn btn-success btn-sm " %> </button>
                     <%end%>
                 </td>
             </tr>
@@ -90,3 +90,8 @@
         </tbody>
         </table>
 </div>
+<script>
+  function func(){
+    confirm("Are you sure?")
+  }
+</script>

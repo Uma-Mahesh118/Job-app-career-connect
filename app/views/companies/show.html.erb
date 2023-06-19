@@ -1,7 +1,11 @@
 <%=render 'paginate'%>
 <div class="container">
     <div class="row">
-        <h2 class="text-center mt-4"><%= @company.name %>'s Profile</h2>
+        <% if logged2_in? %>
+            <h2 class="text-center mt-4">Your Profile</h2>
+        <% else %>
+            <h2 class="text-center mt-4"><%= @company.name.capitalize %>'s Profile</h2>
+        <%end%>
         <div class="col-4 text-center mt-4 " style="top:50%; bottom:50">
             <%= find_image @company %>
         </div>     
@@ -16,9 +20,7 @@
                             <h6> email    : <%= @company.email%></h6>
                             <% if logged_in? && (@company == current_user )%>
                                 <hr>
-                                <%= link_to 'View Profile', company_path(@company), {:class=>"btn btn-outline-success"} %>
                                 <%= link_to 'Edit Profile', edit_company_path(@company), {:class=>"btn btn-outline-info"}%>
-                                <%= button_to 'Delete Profile', company_path(@company), method: "delete", data: { confirm: 'Are you sure?'} , class: "btn btn-outline-danger" %>
                             <%end%>
                         </div> 
                         <div class="card-footer text-muted">
@@ -46,7 +48,7 @@
             <th scope="col"> Job Name </th>
             <th scope="col"> Description </th>
             <th scope="col"> Skills </th>
-            <th scope="col"> Candidates Matched </th>
+            <th scope="col"> Total Matches </th>
             <th scope="col"> Actions </th>
             </tr>
         </thead>
@@ -68,10 +70,10 @@
                     </td>
                     <td > <%= post.applicants.count %> Candidates Matched</td>
                     <td> 
-                        <%= link_to 'Show', post_path(post), {:class=>"btn btn-success btn-sm"} %>
+                        <%= link_to 'Show', post_path(post), {:class=>"btn btn-success btn-sm ml-1"} %>
                         <% if logged_in? && ( post.company == current_user ) %>
-                            <%= link_to 'Edit', edit_post_path(post), {:class=>"btn btn-sm btn-info"}%> 
-                            <%= button_to 'Delete', post_path(post), {method: :delete , :class=>"btn btn-sm btn-danger"}%>
+                            <%= link_to 'Edit', edit_post_path(post), {:class=>"btn btn-sm btn-info ml-1"}%> 
+                            <%= button_to 'Delete Post', post_path(post), {method: :delete, :onclick=>'func()', :class=>"btn btn-sm btn-danger mt-1", :style=> "width:100px"}%>
                         <%end%>
                     </td>
                 </tr>
@@ -79,3 +81,8 @@
         </tbody>
         </table>
 </div>
+<script>
+  function func(){
+    confirm("Are you sure?")
+  }
+</script>

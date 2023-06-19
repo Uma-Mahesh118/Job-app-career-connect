@@ -2,7 +2,10 @@ class SessionsController < ApplicationController
     def new
         if !session[:user1_id].nil?
             flash[:alert] ='You are already logged in'
-            redirect_to companies_path
+            redirect_to company_path(current_user)
+        elsif !session[:user2_id].nil?
+            flash[:alert] ='You are already logged in as Applicant.'
+            redirect_to applicant_path(current_user2)
         end
     end
     def create 
@@ -27,7 +30,10 @@ class SessionsController < ApplicationController
     def new1
         if !session[:user2_id].nil?
             flash[:alert] ='You are already logged in'
-            redirect_to applicants_path
+            redirect_to applicant_path(current_user2)
+        elsif !session[:user1_id].nil?
+            flash[:alert] ='You are already logged in as Company.'
+            redirect_to company_path(current_user)
         end  
     end
     def create1       

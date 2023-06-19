@@ -19,9 +19,13 @@
                                 <h5 class="card-title"><%= first.name.capitalize%></h5>
                                 <div class= "container">
                                     For Posts :
-                                    <% post.each do |find|%>
-                                    <%= find.name %>
-                                    <%end%>
+                                    <% if post.any? %>
+                                        <% post.each do |find|%>
+                                            <%= find.name %>
+                                        <%end%>
+                                    <% else%>
+                                        <p class="text-italics"> Post deleted </p>
+                                    <% end%>
                                 </div>
                                 <br>
                                 <%= button_to "Message now", new_conversation_path, params: {applicant_id: first.id }, method: :get, class:"btn btn-success btn-sm" %> </button>

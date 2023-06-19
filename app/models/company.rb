@@ -15,5 +15,5 @@ class Company < ApplicationRecord
                     format: { with: VALIDITY_CHECK_EMAIL }
     has_secure_password
 
-    has_many :conversations
+    has_many :conversations, dependent: :destroy
 end

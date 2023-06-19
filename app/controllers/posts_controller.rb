@@ -9,6 +9,10 @@ class PostsController < ApplicationController
         @posts= Post.paginate(page: params[:page], per_page: 3)
     end
     def show
+        if !logged_in? && !logged2_in?
+            flash[:alert] = "Login before you see applicant Profiles"
+            redirect_to login_path
+        end  
     end    
 
     def edit 
@@ -17,7 +21,7 @@ class PostsController < ApplicationController
     def update
         if @post.update(  post_params )
             skill_match @post , 'update'
-            flash[:notice]= 'Your Account Information Updated Scuccesfully'
+            flash[:notice]= 'Your Job Post Updated Scuccesfully'
             redirect_to post_path(@post)
         else
             render 'edit'
