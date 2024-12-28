@@ -4,6 +4,8 @@
 
 **Working Video:** https://youtu.be/j2N_ow5lPnA
 
+![image](https://github.com/user-attachments/assets/9ce3616c-9492-464e-abaf-aec9d7d71352)
+
 ## **Features**
 
 1. **Authentication and Role-Based Access**:
@@ -115,22 +117,28 @@ A brief overview of the important gems used in this project:
 
 ---
 
-## **Key Functionalities**
+## **Some Images and Key Functionalities **
+
+![image](https://github.com/user-attachments/assets/9ce3616c-9492-464e-abaf-aec9d7d71352)
 
 1. **Job Posts**:
    - Recruiters can post jobs with required skills and descriptions.
+   ![image](https://github.com/user-attachments/assets/5c96e9d1-6193-4d7e-83bf-f3d7e17c57b4)
 
 2. **Candidate Profiles**:
    - Candidates can create profiles, add skills, and upload resumes.
 
-3. **Skill Matching**:
+3. **Automated required Skill Matching**:
    - Matches candidates to job posts if the skill alignment exceeds 80%.
+   ![image](https://github.com/user-attachments/assets/79166db1-566c-4362-b455-5e047efa8466)
 
 4. **Notifications**:
    - Sends real-time updates about job matches and profile changes.
 
 5. **Chat System**:
    - Real-time communication between recruiters and candidates.
+   ![image](https://github.com/user-attachments/assets/aecd85a3-d735-4dfa-bafd-3439b150a8b7)
+
 
 ---
 Let me know if you'd like any modifications or additions!
