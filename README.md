@@ -2,7 +2,7 @@
 
 **Career Connect** is a full-stack job-seeking platform designed to connect candidates and employers, streamlining job discovery and application processes. The platform incorporates advanced features such as automated skill matching, real-time messaging, and secure authentication.
 
----
+**Working Video:** https://youtu.be/j2N_ow5lPnA
 
 ## **Features**
 
@@ -17,8 +17,9 @@
 3. **Real-Time Notifications**:
    - Integrated `Action Mailer` to send real-time notifications about job matches and profile updates.
 
-. **User-Friendly UI**:
+4. **User-Friendly UI**:
    - Built with **Ruby on Rails**, **HTML**, **Bootstrap**, **CSS**, and **JavaScript** to provide a clean, responsive interface.
+
 
 ---
 
